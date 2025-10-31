@@ -4,121 +4,822 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Printzy | Printing Made Simple</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+            background: #fff;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #000;
+        }
+
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            background: #000;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links li {
+            cursor: pointer;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .nav-links li:hover {
+            color: #000;
+        }
+
+        .nav-cta {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            background: #333;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            background: #f8f8f8;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.15;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        .star:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+        .star:nth-child(2) { top: 25%; left: 85%; animation-delay: 0.5s; }
+        .star:nth-child(3) { top: 60%; left: 15%; animation-delay: 1s; }
+        .star:nth-child(4) { top: 70%; left: 80%; animation-delay: 1.5s; }
+        .star:nth-child(5) { top: 40%; left: 90%; animation-delay: 2s; }
+        .star:nth-child(6) { top: 80%; left: 25%; animation-delay: 2.5s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.2); }
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            line-height: 1.1;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: #000;
+        }
+
+        .highlight {
+            background: #FFD93D;
+            padding: 0 1rem;
+            display: inline-block;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .hero-cta:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        .printer-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .printer {
+            width: 400px;
+            height: 300px;
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .printer-top {
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            border-radius: 20px 20px 0 0;
+            position: relative;
+            border-bottom: 3px solid #1a252f;
+        }
+
+        .printer-screen {
+            width: 80px;
+            height: 30px;
+            background: #41f4a4;
+            position: absolute;
+            right: 30px;
+            top: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #000;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .printer-buttons {
+            position: absolute;
+            left: 30px;
+            top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .button:nth-child(1) { background: #41f4a4; }
+        .button:nth-child(2) { background: #ffd93d; }
+        .button:nth-child(3) { background: #ff6b9d; }
+
+        .button:hover {
+            transform: scale(1.2);
+        }
+
+        .printer-body {
+            padding: 40px;
+            position: relative;
+        }
+
+        .paper-slot {
+            width: 90%;
+            height: 8px;
+            background: #1a252f;
+            margin: 0 auto 30px;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .paper-slot::after {
+            content: '';
+            position: absolute;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: scan 2s infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -30%; }
+            100% { left: 100%; }
+        }
+
+        .paper-output {
+            width: 280px;
+            height: 180px;
+            background: #fff;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            animation: printPaper 4s infinite;
+        }
+
+        @keyframes printPaper {
+            0%, 20% { 
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            40%, 80% { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+        }
+
+        .paper-content {
+            padding: 20px;
+            animation: fadeIn 2s infinite;
+        }
+
+        @keyframes fadeIn {
+            0%, 30% { opacity: 0; }
+            50%, 100% { opacity: 1; }
+        }
+
+        .paper-line {
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin-bottom: 10px;
+            border-radius: 4px;
+            animation: drawLine 1s ease-out;
+        }
+
+        .paper-line:nth-child(2) {
+            width: 80%;
+            animation-delay: 0.2s;
+        }
+
+        .paper-line:nth-child(3) {
+            width: 90%;
+            animation-delay: 0.4s;
+        }
+
+        .paper-line:nth-child(4) {
+            width: 70%;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes drawLine {
+            from { width: 0; }
+        }
+
+        .printer-base {
+            width: 420px;
+            height: 40px;
+            background: linear-gradient(145deg, #1a252f, #2c3e50);
+            border-radius: 20px;
+            margin: 20px auto 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .ink-drop {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: inkFloat 4s infinite;
+        }
+
+        .ink-drop:nth-child(1) {
+            background: #FF6B9D;
+            top: 20%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .ink-drop:nth-child(2) {
+            background: #4FACFE;
+            top: 50%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+
+        .ink-drop:nth-child(3) {
+            background: #FFD93D;
+            top: 70%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .ink-drop:nth-child(4) {
+            background: #A8E063;
+            top: 35%;
+            right: 20%;
+            animation-delay: 3s;
+        }
+
+        @keyframes inkFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+                opacity: 0.3;
+            }
+        }
+
+        .services, .gallery, .contact {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: #FFD93D;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 0;
+            border: 2px solid #000;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 10px 10px 0 #000;
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-link {
+            color: #000;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #000;
+            cursor: pointer;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h4 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .contact-info p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .detail-icon {
+            width: 60px;
+            height: 60px;
+            background: #FFD93D;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-detail strong {
+            display: block;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-form {
+            background: #f8f8f8;
+            padding: 3rem;
+            border: 2px solid #000;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #000;
+            background: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 5px 5px 0 #FFD93D;
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 1.2rem;
+            border: none;
+            background: #000;
+            color: #fff;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-full:hover {
+            background: #333;
+        }
+
+        footer {
+            background: #000;
+            color: #fff;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand .logo-icon {
+            background: #fff;
+            color: #000;
+        }
+
+        .footer-brand p {
+            color: #999;
+        }
+
+        .footer-column h4 {
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: #999;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .printer {
+                width: 300px;
+                height: 250px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav>
         <div class="logo">
-            <div class="logo-mark">
-                <span>P</span>
-            </div>
-            <span class="logo-text">Printzy</span>
+            <div class="logo-icon">P</div>
+            <span>PRINTZY</span>
         </div>
         <ul class="nav-links">
-            <li data-section="home">Home</li>
-            <li data-section="about">Services</li>
-            <li data-section="gallery">Gallery</li>
-            <li data-section="contact">Contact</li>
+            <li onclick="scrollToSection('home')">HOME</li>
+            <li onclick="scrollToSection('services')">SERVICES</li>
+            <li onclick="scrollToSection('gallery')">GALLERY</li>
+            <li onclick="scrollToSection('contact')">CONTACT</li>
         </ul>
-        <button class="nav-cta" data-section="contact">Get Started</button>
+        <button class="nav-cta" onclick="scrollToSection('contact')">SIGN UP</button>
     </nav>
 
-    <section class="home" id="home">
-        <div class="decorative-elements">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
-            <div class="dot-grid"></div>
-        </div>
+    <section class="hero" id="home">
+        <div class="star">✦</div>
+        <div class="star">✦</div>
+        <div class="star">✦</div>
+        <div class="star">✦</div>
+        <div class="star">✦</div>
+        <div class="star">✦</div>
         
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="badge-dot"></span>
-                Your Printing Partner
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>
+                    LET'S<br>
+                    EXPLORE<br>
+                    <span class="highlight">QUALITY</span><br>
+                    PRINTING.
+                </h1>
+                <p>Live for Influential and Innovative printing solutions!</p>
+                <button class="hero-cta" onclick="scrollToSection('contact')">SHOP NOW</button>
             </div>
-            
-            <h1 class="hero-title">
-                Quality Printing<br>
-                <span class="gradient-text">Made Simple</span>
-            </h1>
-            
-            <p class="hero-description">
-                From business cards to large format prints, we transform your ideas into stunning physical reality. Fast, reliable, and affordable printing services for everyone.
-            </p>
-            
-            <div class="hero-buttons">
-                <button class="btn btn-primary" data-section="contact">Start Your Project</button>
-                <button class="btn btn-secondary" data-section="about">View Services</button>
-            </div>
-            
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">5000+</span>
-                    <span class="stat-label">Happy Clients</span>
+
+            <div class="printer-container">
+                <div class="floating-elements">
+                    <div class="ink-drop"></div>
+                    <div class="ink-drop"></div>
+                    <div class="ink-drop"></div>
+                    <div class="ink-drop"></div>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">24hrs</span>
-                    <span class="stat-label">Quick Delivery</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">Quality Assured</span>
+                
+                <div>
+                    <div class="printer">
+                        <div class="printer-top">
+                            <div class="printer-buttons">
+                                <div class="button"></div>
+                                <div class="button"></div>
+                                <div class="button"></div>
+                            </div>
+                            <div class="printer-screen">READY</div>
+                        </div>
+                        <div class="printer-body">
+                            <div class="paper-slot"></div>
+                            <div class="paper-output">
+                                <div class="paper-content">
+                                    <div class="paper-line"></div>
+                                    <div class="paper-line"></div>
+                                    <div class="paper-line"></div>
+                                    <div class="paper-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="printer-base"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="about" id="about">
+    <section class="services" id="services">
         <div class="section-header">
             <span class="section-tag">Our Services</span>
-            <h2>Everything You Need to Print</h2>
+            <h2>Everything You Need</h2>
             <p>Professional printing solutions tailored to your needs</p>
         </div>
 
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-icon" style="background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2"/>
-                        <path d="M3 9h18M9 21V9"/>
-                    </svg>
-                </div>
+                <div class="service-icon">🎴</div>
                 <h3>Business Cards</h3>
                 <p>Premium quality cards that make lasting impressions. Multiple finishes available.</p>
                 <a href="#" class="service-link">Learn More →</a>
             </div>
 
             <div class="service-card">
-                <div class="service-icon" style="background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%);">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                    </svg>
-                </div>
+                <div class="service-icon">📄</div>
                 <h3>Flyers & Brochures</h3>
                 <p>Eye-catching marketing materials to promote your business effectively.</p>
                 <a href="#" class="service-link">Learn More →</a>
             </div>
 
             <div class="service-card">
-                <div class="service-icon" style="background: linear-gradient(135deg, #FFA500 0%, #FF6347 100%);">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <rect x="2" y="7" width="20" height="15" rx="2"/>
-                        <polyline points="17 2 12 7 7 2"/>
-                    </svg>
-                </div>
+                <div class="service-icon">🎪</div>
                 <h3>Banners & Posters</h3>
                 <p>Large format printing for events, promotions, and displays.</p>
                 <a href="#" class="service-link">Learn More →</a>
             </div>
 
             <div class="service-card">
-                <div class="service-icon" style="background: linear-gradient(135deg, #A8E063 0%, #56AB2F 100%);">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 6v6l4 2"/>
-                    </svg>
-                </div>
+                <div class="service-icon">🎨</div>
                 <h3>Custom Products</h3>
                 <p>T-shirts, mugs, stickers, and more. Bring your ideas to life.</p>
                 <a href="#" class="service-link">Learn More →</a>
@@ -162,9 +863,12 @@
     </section>
 
     <section class="contact" id="contact">
+        <div class="section-header">
+            <span class="section-tag">Get in Touch</span>
+        </div>
+        
         <div class="contact-container">
             <div class="contact-info">
-                <span class="section-tag">Get in Touch</span>
                 <h2>Let's Create Something Amazing</h2>
                 <p>Ready to bring your vision to life? Fill out the form and we'll get back to you within 24 hours.</p>
                 
@@ -193,17 +897,17 @@
                 </div>
             </div>
 
-            <form class="contact-form">
+            <form class="contact-form" onsubmit="handleSubmit(event)">
                 <div class="form-group">
-                    <label>Your Name</label>
+                    <label>YOUR NAME</label>
                     <input type="text" placeholder="John Doe" required>
                 </div>
                 <div class="form-group">
-                    <label>Email Address</label>
+                    <label>EMAIL ADDRESS</label>
                     <input type="email" placeholder="john@example.com" required>
                 </div>
                 <div class="form-group">
-                    <label>Project Type</label>
+                    <label>PROJECT TYPE</label>
                     <select required>
                         <option value="">Select a service</option>
                         <option>Business Cards</option>
@@ -214,10 +918,10 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Project Details</label>
+                    <label>PROJECT DETAILS</label>
                     <textarea placeholder="Tell us about your project..." rows="4" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+                <button type="submit" class="btn-full">SEND MESSAGE</button>
             </form>
         </div>
     </section>
@@ -226,28 +930,24 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <div class="logo">
-                    <div class="logo-mark">
-                        <span>P</span>
-                    </div>
-                    <span class="logo-text">Printzy</span>
+                    <div class="logo-icon">P</div>
+                    <span>PRINTZY</span>
                 </div>
                 <p>Quality printing solutions for everyone.</p>
             </div>
-            <div class="footer-links">
-                <div class="footer-column">
-                    <h4>Services</h4>
-                    <a href="#">Business Cards</a>
-                    <a href="#">Flyers</a>
-                    <a href="#">Banners</a>
-                    <a href="#">Custom</a>
-                </div>
-                <div class="footer-column">
-                    <h4>Company</h4>
-                    <a href="#">About Us</a>
-                    <a href="#">Careers</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Contact</a>
-                </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <a href="#">Business Cards</a>
+                <a href="#">Flyers</a>
+                <a href="#">Banners</a>
+                <a href="#">Custom</a>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -255,6 +955,19 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            event.target.reset();
+        }
+    </script>
 </body>
 </html>
